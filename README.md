@@ -7,5 +7,5 @@ user: projetwebminesnancy@gmail.com
 mdp: Depinfonancy1.
 
 github
-user: projetwebminesnancy@gmail;com
+user: projetwebminesnancy@gmail.com
 mdp: Depinfonancy
