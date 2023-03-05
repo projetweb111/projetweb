@@ -8,6 +8,6 @@ mdp: Depinfonancy1.
 
 github
 user: projetwebminesnancy@gmail.com
-mdp: Depinfonancy
+mdp: DepInfoMinesNancy2
 
 tutoriel supabase: https://supabase.com/docs/guides/getting-started/tutorials/with-sveltekit
