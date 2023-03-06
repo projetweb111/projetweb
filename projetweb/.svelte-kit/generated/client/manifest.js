@@ -4,12 +4,15 @@ export { matchers } from './matchers.js';
 
 export const nodes = [() => import('./nodes/0'),
 	() => import('./nodes/1'),
-	() => import('./nodes/2')];
+	() => import('./nodes/2'),
+	() => import('./nodes/3'),
+	() => import('./nodes/4')];
 
-export const server_loads = [0];
+export const server_loads = [];
 
 export const dictionary = {
-	"/": [2]
+	"/home": [3,[2]],
+	"/home/actualite": [4,[2]]
 };
 
 export const hooks = {

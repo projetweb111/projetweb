@@ -29,6 +29,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@emotion/react": "^11.10.6",
+		"@emotion/styled": "^11.10.6",
+		"@mui/joy": "^5.0.0-alpha.69",
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.7.1"
 	}

@@ -1,8 +1,5 @@
 {
-	"/": [
-		"src/routes/+layout.ts",
-		"src/routes/+layout.server.ts",
-		"src/routes/+layout.ts",
-		"src/routes/+layout.server.ts"
-	]
+	"/": [],
+	"/home": [],
+	"/home/actualite": []
 }
