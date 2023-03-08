@@ -23,22 +23,21 @@ const getPost= async () => {
     //const { data, error, status } = await supabase
       //.from('post')
       //.select(`username, com, association, title, content, count_likes, users!inner(*)`)
-      const { data, error } = await supabase
-    .from('post')
-    .select("*")
-    .order('id', { ascending: false })
-      
+  let { data, error } = await supabase
+  .from('post')
+  .select()
+  .order('date_publish', { ascending: true})
+  console.log(posts)
 
     if (data) {
       
-    posts= data
-    console.table(posts)
-    console.log(posts?.length)
+      posts=data
+      console.table(posts);
 
 
     }
 
-    if (error && status !== 406) throw error
+    if (error) throw error
   } catch (error) {
     if (error instanceof Error) {
       alert(error.message)
@@ -52,20 +51,9 @@ const getPost= async () => {
   //getPost()
 //});
 
-// n'oublie pas de copier cde qui dans onMount dans fonction getPost
-onMount(async () => {
-  
-let { data, error } = await supabase
-  .from('post')
-  .select()
-  console.log(posts)
-    if (error) {
-      console.log("error", error);
-    } else {
-      posts=data
-      console.table(posts);
-    }
 
+onMount(() => {
+  getPost()
 })
 
 
@@ -89,6 +77,7 @@ let { data, error } = await supabase
       <p>{post.count_likes}</p>
       <p>{post.association}</p>
       <p>{post.username}</p>
+      <p>{post.date_publish}</p>
     </div>
   {/each}
 {:else}
