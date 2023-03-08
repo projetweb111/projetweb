@@ -1,7 +1,7 @@
 <script>
     import { page } from '$app/stores'
-    import Account from './Account.svelte'
-    import Auth from './Auth.svelte'
+    import Account from './accountUpdate/Account.svelte'
+    import Auth from './signIn/Auth.svelte'
   </script>
   
   <svelte:head>
