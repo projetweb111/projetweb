@@ -4,7 +4,7 @@
 </script>
 
 
-{#if $page.data.session}
+{#if !$page.data.session}
 <Actualite session="{$page.data.session}" />
   {:else}
   <h1>Veuillez se connecter</h1>

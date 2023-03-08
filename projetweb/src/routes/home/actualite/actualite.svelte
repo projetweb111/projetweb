@@ -3,27 +3,39 @@
     import { onMount } from 'svelte'
     import type { AuthSession } from '@supabase/supabase-js'
     import { supabase } from '$lib/supabaseClient'
-    
+   
 export let session: AuthSession
-  
+
 let com = '';
 let loading = false
 let association: string | null = null
 let title: string | null = null
 let content: string | null = null
 let count_likes: number | null = null
+let posts: any[] | null =null
+
+// should update when we have auth
 const getPost= async () => {
   try {
     loading = true
     const { user } = session
 
-    const { data, error, status } = await supabase
-      .from('post')
-      .select(`username, website, avatar_url, com, association, title, content, count_likes`)
-      .eq('id', user.id)
-      .single()
+    //const { data, error, status } = await supabase
+      //.from('post')
+      //.select(`username, com, association, title, content, count_likes, users!inner(*)`)
+      const { data, error } = await supabase
+    .from('post')
+    .select("*")
+    .order('id', { ascending: false })
+      
 
     if (data) {
+      
+    posts= data
+    console.table(posts)
+    console.log(posts?.length)
+
+
     }
 
     if (error && status !== 406) throw error
@@ -36,9 +48,27 @@ const getPost= async () => {
   }
 };
 
-onMount(() => {
-  getPost()
+//onMount(() => {
+  //getPost()
+//});
+
+// n'oublie pas de copier cde qui dans onMount dans fonction getPost
+onMount(async () => {
+  
+let { data, error } = await supabase
+  .from('post')
+  .select()
+  console.log(posts)
+    if (error) {
+      console.log("error", error);
+    } else {
+      posts=data
+      console.table(posts);
+    }
+
 })
+
+
 
 </script>
 <title>Actualité</title>
@@ -48,3 +78,19 @@ onMount(() => {
     <button class="button block" on:click="{getPost}" >search</button>
   </div>
 <p>Voici les dernières actualités</p>
+
+
+
+{#if posts}
+  {#each posts as post}
+    <div>
+      <h2>{post.title}</h2>
+      <p>{post.content}</p>
+      <p>{post.count_likes}</p>
+      <p>{post.association}</p>
+      <p>{post.username}</p>
+    </div>
+  {/each}
+{:else}
+  <p>loading...</p>
+{/if}
