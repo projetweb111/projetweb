@@ -3,7 +3,6 @@ import { vitePreprocess } from '@sveltejs/kit/vite';
  
 const config = {
   kit: {
-	target: 'svelte',
     adapter: vercel()
   }
 };
