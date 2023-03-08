@@ -1,12 +1,11 @@
-import adapter from '@sveltejs/adapter-vercel';
+import vercel from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/kit/vite';
  
-export default {
+const config = {
   kit: {
-    adapter: adapter({
-		runtime : 'edge'
-      // see the 'Deployment configuration' section below
-    })
+	target: 'svelte',
+    adapter: vercel()
   }
 };
 
+export default config
