@@ -8,7 +8,10 @@
     const handleLogin = async () => {
       try {
         loading = true
-        const { error } = await supabase.auth.signInWithOtp({ email })
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+         })
         if (error) throw error
       } catch (error) {
         if (error instanceof Error) {
