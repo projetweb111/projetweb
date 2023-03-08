@@ -36,7 +36,7 @@
         disabled={loading} />
       </div>
       <div>
-        <a href="/sign-up">Sign up</a>
+        <a href="/signUp">Sign up</a>
       </div>
     </div>
   </form>

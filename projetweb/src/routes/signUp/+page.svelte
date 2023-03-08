@@ -17,6 +17,7 @@
             data: {
               first_name,
               last_name,
+              email,
             },
           },
          })
@@ -44,8 +45,15 @@
         <input class="inputField" type="password" placeholder="Your password" bind:value="{password}" />
       </div>
       <div>
-        <input type="submit" class="button block" value={loading ? 'Loading' : 'Sign in'}
+        <input type="submit" class="button block" value={loading ? 'Loading' : 'Sign up'}
         disabled={loading} />
       </div>
+    </div>
+  </form>
+
+  <form class="row flex-center flex">
+    <div>After you have signed up :</div>
+    <div class="col-6 form-widget">
+      <a href="/signIn">Sign in</a>
     </div>
   </form>
