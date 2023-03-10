@@ -1,7 +1,6 @@
 <script>
     import { page } from '$app/stores'
-    import Account from './account/+page.svelte'
-	  import LogOut from './signOut/LogOut.svelte';
+	  import SignOut from './signOut/signOut.svelte';
   </script>
   
   <svelte:head>
@@ -11,19 +10,23 @@
   
   {#if !$page.data.session}
   <form class="row flex-center flex">
-    <div>Welcome !</div>
-    <div class="col-6 form-widget">
+    <h1 class="header">Welcome !</h1>
+    <p>Please sign in to continue</p>
+  </form>
+  <form class="row flex-right flex">
+    <div class="col-6 button-block">
       <a href="/signIn">Sign in</a>
     </div>
   </form>
   {:else}
   <form class="row flex-center flex">
-    <div>Hola !</div>
-
-    <div class="col-6 form-widget">
+    <h1 class="header">Welcome !</h1>
+    <p>You are logged in as {$page.data.session.user.email}</p>
+  </form>
+  <form class="row flex-right flex">
+    <div class="col-6 button-block">
       <a href="/account">My account</a>
     </div>
   </form>
-  <LogOut />
+  <SignOut />
   {/if}
-  
