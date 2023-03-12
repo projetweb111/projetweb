@@ -170,3 +170,9 @@ onMount(() => {
 {:else}
   <p>loading...</p>
 {/if}
+
+<style>
+  select {
+   background-color: black;
+  }
+</style>
