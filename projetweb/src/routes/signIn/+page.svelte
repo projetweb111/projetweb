@@ -1,4 +1,6 @@
 <script lang="ts">
+	  import { goto, invalidateAll } from '$app/navigation';
+	  import { page } from '$app/stores';
     import { supabase } from '$lib/supabaseClient'
   
     let loading = false
@@ -13,6 +15,7 @@
           password,
          })
         if (error) throw error
+        goto("/",{invalidateAll: true})
       } catch (error) {
         if (error instanceof Error) {
           alert(error.message)
@@ -23,6 +26,7 @@
     }
   </script>
   
+  {#if !$page.data.session}
   <form class="row flex-center flex" on:submit|preventDefault="{handleLogin}">
     <div class="col-6 form-widget">
       <h1 class="header">Authentification - Sign in</h1>
@@ -35,8 +39,8 @@
         <input type="submit" class="button block" value={loading ? 'Loading' : 'Sign in'}
         disabled={loading} />
       </div>
-      <div>
-        <a href="/signUp">Sign up</a>
-      </div>
     </div>
   </form>
+  {:else}
+  <h1 class="header">You just signed in</h1>
+  {/if}

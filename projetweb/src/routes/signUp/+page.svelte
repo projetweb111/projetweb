@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
     import { supabase } from '$lib/supabaseClient'
   
     let loading = false
@@ -22,6 +23,7 @@
           },
          })
         if (error) throw error
+        goto("/signIn",{invalidateAll: true})
       } catch (error) {
         if (error instanceof Error) {
           alert(error.message)
@@ -48,12 +50,5 @@
         <input type="submit" class="button block" value={loading ? 'Loading' : 'Sign up'}
         disabled={loading} />
       </div>
-    </div>
-  </form>
-
-  <form class="row flex-center flex">
-    <div>After you have signed up :</div>
-    <div class="col-6 form-widget">
-      <a href="/signIn">Sign in</a>
     </div>
   </form>

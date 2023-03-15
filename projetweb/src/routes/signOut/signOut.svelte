@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
     import { supabase } from '$lib/supabaseClient'
   
     let loading = false
@@ -8,6 +9,7 @@
         loading = true
         let { error } = await supabase.auth.signOut()
         if (error) throw error
+        goto("/",{invalidateAll: true})
       } catch (error) {
         if (error instanceof Error) {
           alert(error.message)
