@@ -133,7 +133,7 @@ onMount(() => {
 
     <div>
       <button id={post.title} on:click={() => addLikes(post.title) }>♡</button>
-      <p>{post.count_likes}</p>
+      {post.count_likes}
     </div>
 
   {/each}
