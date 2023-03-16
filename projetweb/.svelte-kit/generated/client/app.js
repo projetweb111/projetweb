@@ -8,15 +8,17 @@ export const nodes = [
 	() => import('./nodes/2'),
 	() => import('./nodes/3'),
 	() => import('./nodes/4'),
-	() => import('./nodes/5')
+	() => import('./nodes/5'),
+	() => import('./nodes/6')
 ];
 
 export const server_loads = [0];
 
 export const dictionary = {
 		"/": [3],
-		"/signIn": [4],
-		"/signUp": [5]
+		"/protected_routes/account": [4,[2]],
+		"/signIn": [5],
+		"/signUp": [6]
 	};
 
 export const hooks = {
