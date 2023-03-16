@@ -23,7 +23,7 @@
     <a href= "/signIn">Sign in</a>
     <a href= "/signUp">Sign up</a>
   {:else}
-    <a href= "/account">My account</a>
+    <a href= "/protected_routes/account">My account</a>
     <SignOut />
   {/if}
 </nav>

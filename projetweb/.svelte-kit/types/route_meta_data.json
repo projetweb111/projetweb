@@ -3,9 +3,7 @@
 		"src/routes/+layout.server.ts",
 		"src/routes/+layout.server.ts"
 	],
-	"/account": [
-		"src/routes/+layout.server.ts"
-	],
+	"/protected_routes/account": [],
 	"/signIn": [
 		"src/routes/+layout.server.ts"
 	],
