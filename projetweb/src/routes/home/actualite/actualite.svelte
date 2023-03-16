@@ -3,19 +3,17 @@
   import { onMount } from 'svelte'
   import type { AuthSession } from '@supabase/supabase-js'
   import { supabase } from '$lib/supabaseClient'
+  
 	
    
    
 export let session: AuthSession
 
-let com = '';
+
 let loading = false
-let association: string | null = null
-let title: string | null = null
-let content: string | null = null
-let count_likes: number | null = null
 let posts: any[] | null =null
 let like=0
+let post_id: any = null
 
 
 // should update when we have auth
@@ -31,12 +29,12 @@ const getPost= async () => {
     .from('post')
     .select('*,users(first_name)')
     .order('date_publish', { ascending: true})
-    console.log(posts)
+    //console.log(posts)
   
       if (data) {
         
         posts=data
-        console.table(posts);
+        //console.table(posts);
   
   
       }
@@ -51,9 +49,8 @@ const getPost= async () => {
     }
   };
 
-//onMount(() => {
-  //getPost()
-//});
+
+
 
 const addLikes=async (post_title:string) => {
   try {
@@ -62,22 +59,27 @@ const addLikes=async (post_title:string) => {
 
     let { data, error } = await supabase
     .from('post')
-    .select('count_likes')
+    .select('count_likes,id')
     .eq('title', post_title)
     .single()
     let Data=data
     
-  
-      if (Data) {
+    
+      if (Data) {        
+        let Liked=await isLiked(post_title,Data.id)
+        console.log(Liked)
+        if(Liked==false)
+        {
+        post_id=Data.id
         
         let likes=Data.count_likes
         likes=likes+1
         let {data} = await supabase.from('post').update({count_likes:likes}).eq('title', post_title)
-        like+=1
-        loading=false
-        getPost()  // update the page
-        
-  
+        like+=1        
+        let {data:liked}= await supabase.from('like_post').upsert([{id_post:Data.id,id_user:user.id}])
+        console.log(liked)
+      }
+
       }
      
   
@@ -89,9 +91,21 @@ const addLikes=async (post_title:string) => {
     } finally {
       
       loading = false
-      document.getElementById(post_title).disabled=true
+        getPost()  // update the page
     }
   
+}
+
+const isLiked = async(post_title:string,post_id:any)=>{
+  // true if the user has already liked the post
+  let {data:liked}= await supabase.from('like_post').select('*').eq('id_post', post_id).eq('id_user', session.user.id).single()
+  //console.table(liked)
+  if(liked!=null){
+    return true
+  }
+  else{
+    return false
+  }
 }
 
 onMount(() => {
