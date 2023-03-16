@@ -140,7 +140,7 @@ onMount(() => {
     <p>
     <input class="inputField" type="com" placeholder="search posts by association" bind:value="{search_text}" />
     </p>
-    <button class="button block" on:click="{getPost}" >print all posts</button>
+    <button class="button block" on:click="{getPost}" >show all posts</button>
     <p>By 
       <select>
         <option value="association" on:click={searchPostByAsso}>association</option>
