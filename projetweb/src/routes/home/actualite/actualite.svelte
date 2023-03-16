@@ -121,9 +121,9 @@ onMount(() => {
     en attent d'ajouter url pour photo de profil dans tableau users
     -->
 	
-      <h2>{post.title}</h2>
-      <p>{post.association}</p>
-      <p>{post.users.first_name}</p>
+      <h2>Title: {post.title}</h2>
+      <p>Association: {post.association}</p>
+      <p>Author:{post.users.first_name}</p>
     </div>
     
     <details>
@@ -132,7 +132,7 @@ onMount(() => {
     </details>
 
     <div>
-      <button id={post.title} on:click={() => addLikes(post.title) }>Like</button>
+      <button id={post.title} on:click={() => addLikes(post.title) }>♡</button>
       <p>{post.count_likes}</p>
     </div>
 
