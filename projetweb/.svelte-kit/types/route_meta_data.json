@@ -1,8 +1,13 @@
 {
 	"/": [
-		"src/routes/+layout.ts",
 		"src/routes/+layout.server.ts",
-		"src/routes/+layout.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/protected_routes/account": [],
+	"/signIn": [
+		"src/routes/+layout.server.ts"
+	],
+	"/signUp": [
 		"src/routes/+layout.server.ts"
 	]
 }

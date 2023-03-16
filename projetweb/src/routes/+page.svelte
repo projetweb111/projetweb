@@ -1,17 +1,20 @@
 <script>
     import { page } from '$app/stores'
-    import Account from './Account.svelte'
-    import Auth from './Auth.svelte'
   </script>
   
   <svelte:head>
-    <title>Supabase + SvelteKit</title>
-    <meta name="description" content="SvelteKit using supabase-js v2" />
+    <title>Home</title>
   </svelte:head>
   
   {#if !$page.data.session}
-  <Auth />
+  <form class="row flex-center flex">
+    <h1 class="header">Welcome !</h1>
+  </form>
+  <form class="row flex-center flex">
+    <p class="form-widget" >Please sign in to continue</p>
+  </form>
   {:else}
-  <Account session="{$page.data.session}" />
+  <form class="row flex-center flex">
+    <h1 class="header">Welcome {$page.data.session.user.email} !</h1>
+  </form>
   {/if}
-  
