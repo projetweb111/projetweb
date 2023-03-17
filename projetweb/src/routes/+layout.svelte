@@ -19,12 +19,13 @@
 
 <nav >
   <a href= "/">🏠 Home</a>
-  <a href="/actualite">Actualités</a>
   {#if !$page.data.session}
     <a href= "/signIn">Sign in</a>
     <a href= "/signUp">Sign up</a>
   {:else}
+    <a href="/protected_routes/actualite">Actualités</a>
     <a href= "/protected_routes/account">My account</a>
+    <a href="/protected_routes/search"> Search </a>
     <SignOut />
   {/if}
   
