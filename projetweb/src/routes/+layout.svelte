@@ -18,7 +18,8 @@
 </script>
 
 <nav >
-  <a href= "/">Home</a>
+  <a href= "/">🏠 Home</a>
+  <a href="/actualite">Actualités</a>
   {#if !$page.data.session}
     <a href= "/signIn">Sign in</a>
     <a href= "/signUp">Sign up</a>
@@ -26,6 +27,7 @@
     <a href= "/protected_routes/account">My account</a>
     <SignOut />
   {/if}
+  
 </nav>
 
 <style>

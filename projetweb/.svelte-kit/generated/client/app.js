@@ -9,16 +9,20 @@ export const nodes = [
 	() => import('./nodes/3'),
 	() => import('./nodes/4'),
 	() => import('./nodes/5'),
-	() => import('./nodes/6')
+	() => import('./nodes/6'),
+	() => import('./nodes/7'),
+	() => import('./nodes/8')
 ];
 
 export const server_loads = [0];
 
 export const dictionary = {
 		"/": [3],
-		"/protected_routes/account": [4,[2]],
-		"/signIn": [5],
-		"/signUp": [6]
+		"/actualite": [4],
+		"/protected_routes/account": [5,[2]],
+		"/search": [6],
+		"/signIn": [7],
+		"/signUp": [8]
 	};
 
 export const hooks = {
