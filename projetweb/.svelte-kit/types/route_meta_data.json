@@ -3,16 +3,16 @@
 		"src/routes/+layout.server.ts",
 		"src/routes/+layout.server.ts"
 	],
-	"/actualite": [
-		"src/routes/+layout.server.ts"
-	],
 	"/protected_routes": [
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/account": [
 		"src/routes/+layout.server.ts"
 	],
-	"/search": [
+	"/protected_routes/actualite": [
+		"src/routes/+layout.server.ts"
+	],
+	"/protected_routes/search": [
 		"src/routes/+layout.server.ts"
 	],
 	"/signIn": [
