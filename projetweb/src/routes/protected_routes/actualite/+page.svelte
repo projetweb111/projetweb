@@ -5,7 +5,6 @@
       
   let loading = false
   let posts: any[] | null =null
-  let like=0
    
   onMount(() => {
     getPost();
@@ -52,27 +51,27 @@
       let likes_of_post_to_like=data?.count_likes
       
       if (data) {        
-        let liked=await isLiked(post_title,post_to_like)
+        let liked = await isLiked(post_to_like)
 
         if(!liked) {
+          console.log("liking")
           let {data:post_liked} = await supabase
           .from('post')
           .update({count_likes:likes_of_post_to_like+1})
-          .eq('title', post_title)
-            
-          like+=1
-          let {data:liked} = await supabase
+          .eq('id', post_to_like)
+          
+          let {data:like_added} = await supabase
           .from('like_post')
           .upsert([{id_post:post_to_like,id_user:$page.data.session.user.id}])
         }
         else{
-          let {data:post_liked} = await supabase
+          console.log("disliking")
+          let {data:post_disliked} = await supabase
           .from('post')
           .update({count_likes:likes_of_post_to_like-1})
-          .eq('title', post_title)
+          .eq('id', post_to_like)
             
-          like-=1
-          let {data:liked} = await supabase
+          let {data:like_deleted} = await supabase
           .from('like_post')
           .delete()
           .eq('id_post', post_to_like)
@@ -95,18 +94,19 @@
   }
   
   // Check if the user has already liked the post
-  const isLiked = async(post_title:string,post_id:any)=>{
+  const isLiked = async(post_id:any)=>{
     let {data:liked}= await supabase
     .from('like_post')
     .select('*')
     .eq('id_post', post_id)
     .eq('id_user', $page.data.session.user.id)
-    .single()
 
-    if(liked){
+    if(liked && liked.length >0){
+      console.log("liked")
       return true
     }
     else{
+      console.log("not liked")
       return false
     }
   }
