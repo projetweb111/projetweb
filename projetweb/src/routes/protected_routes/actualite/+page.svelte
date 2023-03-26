@@ -54,8 +54,7 @@
         let liked = await isLiked(post_to_like)
 
         if(!liked) {
-          console.log("liking")
-          let {data:post_liked} = await supabase
+          let {data:post_liked, error} = await supabase
           .from('post')
           .update({count_likes:likes_of_post_to_like+1})
           .eq('id', post_to_like)
@@ -65,7 +64,6 @@
           .upsert([{id_post:post_to_like,id_user:$page.data.session.user.id}])
         }
         else{
-          console.log("disliking")
           let {data:post_disliked} = await supabase
           .from('post')
           .update({count_likes:likes_of_post_to_like-1})
@@ -102,11 +100,9 @@
     .eq('id_user', $page.data.session.user.id)
 
     if(liked && liked.length >0){
-      console.log("liked")
       return true
     }
     else{
-      console.log("not liked")
       return false
     }
   }
