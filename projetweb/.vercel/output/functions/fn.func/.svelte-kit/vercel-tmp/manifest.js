@@ -4,7 +4,7 @@ export const manifest = {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {"start":{"file":"_app/immutable/entry/start.86058fbf.js","imports":["_app/immutable/entry/start.86058fbf.js","_app/immutable/chunks/index.ce7212fb.js","_app/immutable/chunks/singletons.24382da3.js"],"stylesheets":[],"fonts":[]},"app":{"file":"_app/immutable/entry/app.d3756384.js","imports":["_app/immutable/entry/app.d3756384.js","_app/immutable/chunks/supabaseClient.e8e52d2c.js","_app/immutable/chunks/browser-ponyfill.10e9505f.js","_app/immutable/chunks/index.ce7212fb.js"],"stylesheets":[],"fonts":[]}},
+		client: {"start":{"file":"_app/immutable/entry/start.712cb264.js","imports":["_app/immutable/entry/start.712cb264.js","_app/immutable/chunks/index.ce7212fb.js","_app/immutable/chunks/singletons.4e433b4b.js"],"stylesheets":[],"fonts":[]},"app":{"file":"_app/immutable/entry/app.f2b28245.js","imports":["_app/immutable/entry/app.f2b28245.js","_app/immutable/chunks/supabaseClient.e8e52d2c.js","_app/immutable/chunks/browser-ponyfill.10e9505f.js","_app/immutable/chunks/index.ce7212fb.js"],"stylesheets":[],"fonts":[]}},
 		nodes: [
 			() => import('../output/server/nodes/0.js'),
 			() => import('../output/server/nodes/1.js'),
