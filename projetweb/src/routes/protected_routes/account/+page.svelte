@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-    import { supabase } from '$lib/supabaseClient'
-    import { onMount } from 'svelte'
+  import { supabase } from '$lib/supabaseClient'
+  import { onMount } from 'svelte'
+	import Avatar from './Avatar.svelte';
 
     let user = $page.data.session.user;
 
@@ -11,6 +12,8 @@
 	let email: string | null = null;
 	let status: string | null = null;
 	let promo: string | null = null;
+
+  let photo: string | null = null;
 
 	let loading = false;
     onMount(() => {
@@ -48,6 +51,47 @@
       finally {
         loading = false
       }
+      /*
+      try {
+        loading = true;
+        const { data, error } = await supabase
+        .storage
+        .from('avatars')
+        .download('public/vicar.jpg')
+
+        //console.log(data)
+
+        if (error) throw error
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message)
+        }
+      }
+      finally {
+        loading = false
+      }*/
+    };
+      
+      const updateProfile = async () => {
+        try {
+          loading = true
+          const updates = {
+            id: user.id,
+            photo: photo
+          }
+
+        let { error } = await supabase.from('users').upsert(updates)
+
+        if (error) {
+          throw error
+        }
+      } catch (error) {
+          if (error instanceof Error) {
+            alert(error.message)
+          }
+      } finally {
+        loading = false
+      }
     };
 </script>
 
@@ -80,6 +124,13 @@
 {:else}
 <p>Loading ...</p>
 {/if}
+
+<form on:submit|preventDefault="{updateProfile}" class="form-widget">
+  <!-- Add to body -->
+  <Avatar bind:url="{photo}" size="{150}" on:upload="{updateProfile}" />
+
+  <!-- Other form elements -->
+</form>
 
 <div class="row flex-center flex footer">
 <form class="row flex">
