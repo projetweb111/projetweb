@@ -1,103 +1,109 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
-    import type { AuthSession } from '@supabase/supabase-js'
-    import { supabase } from '$lib/supabaseClient'
-    import { page } from '$app/stores'
+  import { onMount } from 'svelte'
+  import { supabase } from '$lib/supabaseClient'
+  import { page } from '$app/stores'
       
-     
-     
-  
   let loading = false
   let posts: any[] | null =null
   let like=0
-  let post_id: any = null
-  
-  
-  // should update when we have auth
+   
+  onMount(() => {
+    getPost();
+  })
+
+  // GET the posts from the database
   const getPost= async () => {
-      try {
-        loading = true
-        
-    
-        //const { data, error, status } = await supabase
-          //.from('post')
-          //.select(`username, com, association, title, content, count_likes, users!inner(*)`)
+    try {
+      loading = true
+
       let { data, error } = await supabase
       .from('post')
       .select('*,users(first_name)')
       .order('date_publish', { ascending: true})
-      //console.log(posts)
     
-        if (data) {
-          
-          posts=data
-          //console.table(posts);
-    
-    
-        }
-    
-        if (error) throw error
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message)
-        }
-      } finally {
-        loading = false
+      if (data) {
+        posts=data
       }
-    };
+    
+      if (error) throw error
+    } 
+    catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } 
+    finally {
+      loading = false
+    }
+  };
   
-  
-  
-  
+  // Add a like to the post or dislike it if the user has already liked it
   const addLikes=async (post_title:string) => {
     try {
-        loading = true
-        
-  
+      loading = true
+      
       let { data, error } = await supabase
       .from('post')
       .select('count_likes,id')
       .eq('title', post_title)
       .single()
-      let Data=data
       
+      let post_to_like=data?.id
+      let likes_of_post_to_like=data?.count_likes
       
-        if (Data) {        
-          let Liked=await isLiked(post_title,Data.id)
-          console.log(Liked)
-          if(Liked==false)
-          {
-          post_id=Data.id
-          
-          let likes=Data.count_likes
-          likes=likes+1
-          let {data} = await supabase.from('post').update({count_likes:likes}).eq('title', post_title)
-          like+=1        
-          let {data:liked}= await supabase.from('like_post').upsert([{id_post:Data.id,id_user:$page.data.session.user.id}])
-          console.log(liked)
+      if (data) {        
+        let liked=await isLiked(post_title,post_to_like)
+
+        if(!liked) {
+          let {data:post_liked} = await supabase
+          .from('post')
+          .update({count_likes:likes_of_post_to_like+1})
+          .eq('title', post_title)
+            
+          like+=1
+          let {data:liked} = await supabase
+          .from('like_post')
+          .upsert([{id_post:post_to_like,id_user:$page.data.session.user.id}])
         }
-  
+        else{
+          let {data:post_liked} = await supabase
+          .from('post')
+          .update({count_likes:likes_of_post_to_like-1})
+          .eq('title', post_title)
+            
+          like-=1
+          let {data:liked} = await supabase
+          .from('like_post')
+          .delete()
+          .eq('id_post', post_to_like)
+          .eq('id_user', $page.data.session.user.id)
         }
+      }
        
     
-        if (error) throw error
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message)
-        }
-      } finally {
-        
-        loading = false
-          getPost()  // update the page
+      if (error) throw error
+    } 
+    catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
       }
-    
+    } 
+    finally {
+      loading = false
+        getPost()  // update the page
+    }
   }
   
+  // Check if the user has already liked the post
   const isLiked = async(post_title:string,post_id:any)=>{
-    // true if the user has already liked the post
-    let {data:liked}= await supabase.from('like_post').select('*').eq('id_post', post_id).eq('id_user', $page.data.session.user.id).single()
-    //console.table(liked)
-    if(liked!=null){
+    let {data:liked}= await supabase
+    .from('like_post')
+    .select('*')
+    .eq('id_post', post_id)
+    .eq('id_user', $page.data.session.user.id)
+    .single()
+
+    if(liked){
       return true
     }
     else{
@@ -105,19 +111,11 @@
     }
   }
   
-  onMount(() => {
-    getPost();
-  })
   
-  
-  // code to fold the content of the posts
-  
+  // Display the posts
   </script>
-  <title>Actualité</title>
-  <h1>Actualité</h1>
-  <p>Voici les dernières actualités</p>
-  
-  
+  <h1>Actualités</h1>
+  <h2>Voici les dernières actualités :</h2>
   
   {#if posts}
     {#each posts as post}
@@ -129,10 +127,10 @@
               alt={post.avatarUrl ? 'Avatar' : 'No image'}
               
           />
-      en attent d'ajouter url pour photo de profil dans tableau users
+      en attente d'ajouter url pour photo de profil dans tableau users
       -->
       
-        <h2>Title: {post.title}</h2>
+        <h3>Title: {post.title}</h3>
         <p>Association: {post.association}</p>
         <p>Author:{post.users.first_name}</p>
       </div>

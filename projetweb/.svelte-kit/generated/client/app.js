@@ -18,7 +18,7 @@ export const server_loads = [0];
 
 export const dictionary = {
 		"/": [3],
-		"/protected_routes/account": [4,[2]],
+		"/protected_routes/account": [~4,[2]],
 		"/protected_routes/actualite": [5,[2]],
 		"/protected_routes/search": [6,[2]],
 		"/signIn": [7],
