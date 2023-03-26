@@ -3,10 +3,7 @@
     import { supabase } from '$lib/supabaseClient'
     import { onMount } from 'svelte'
 
-	let session = $page.data.session;
-    console.log(session);
     let user = $page.data.session.user;
-    console.log(user);
 
 	let first_name: string | null = null;
 	let last_name: string | null = null;
@@ -53,3 +50,34 @@
       }
     };
 </script>
+
+
+<form class="row flex-center flex">
+    <h1>My account</h1>
+</form>
+
+{#if first_name}
+<form class="row flex-left flex">
+    <p><strong>My name : </strong>{first_name} {last_name}</p>
+</form>
+<form class="row flex-left flex">
+    <p><strong>My pseudo : </strong>{pseudo}</p>
+</form>
+<form class="row flex-left flex">
+    <p><strong>My email : </strong>{email}</p>
+</form>
+<form class="row flex-left flex">
+    <p><strong>Promo : </strong>{promo}</p>
+</form>
+<form class="row flex-left flex">
+    <p><strong>Status : </strong>{status}</p>
+</form>
+
+<form class="row flex-right flex">
+    <a class="button" href="/protected_routes/account/update">Edit my account</a>
+</form>
+
+
+{:else}
+<p>Loading ...</p>
+{/if}
