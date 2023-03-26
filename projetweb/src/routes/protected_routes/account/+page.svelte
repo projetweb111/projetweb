@@ -74,10 +74,18 @@
 </form>
 
 <form class="row flex-right flex">
-    <a class="button" href="/protected_routes/account/update">Edit my account</a>
+    <a class="button block primary" href="/protected_routes/account/update">Edit my account</a>
 </form>
-
 
 {:else}
 <p>Loading ...</p>
 {/if}
+
+<div class="row flex-center flex footer">
+<form class="row flex">
+    <a class="button block" href="/protected_routes/account/posts">Mes posts</a>
+</form>
+<form class="row flex">
+    <a class="button block" href="/protected_routes/account/assos">Mes assos</a>
+</form>
+</div>
