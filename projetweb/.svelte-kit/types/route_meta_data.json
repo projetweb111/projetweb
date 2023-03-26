@@ -7,7 +7,9 @@
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/account": [
-		"src/routes/protected_routes/account/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/protected_routes/account/update": [
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/actualite": [

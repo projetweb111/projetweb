@@ -1,74 +1,55 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import type { ActionData, PageData } from './$types';
+	import { page } from '$app/stores'
+    import { supabase } from '$lib/supabaseClient'
+    import { onMount } from 'svelte'
 
-	export let data: PageData;
-	export let form: ActionData;
+	let session = $page.data.session;
+    console.log(session);
+    let user = $page.data.session.user;
+    console.log(user);
 
-	let { session, user } = data;
+	let first_name: string | null = null;
+	let last_name: string | null = null;
+	let pseudo: string | null = null;
+	let email: string | null = null;
+	let status: string | null = null;
+	let promo: string | null = null;
 
-    let profileForm: any;
 	let loading = false;
-	let first_name: string | null = user?.first_name;
-	let last_name: string | null = user?.last_name;
-	let pseudo: string | null = user?.pseudo;
-	let email: string | null = user?.email;
-	let status: string | null = user?.status;
-	let promo: string | null = user?.promo;
+    onMount(() => {
+      getData();
+    })
 
-	function handleSubmit() {
-		loading = true;
-		return async () => {
-			loading = false;
-		};
-	}
+
+    // GET the user's data from the database
+    const getData = async () => {
+      try {
+        loading = true
+
+        let { data, error } = await supabase
+        .from('users')
+        .select('first_name, last_name, pseudo, email, status, promo')
+        .eq('id', user.id)
+        .single()
+
+        if (data) {
+          first_name = data.first_name
+          last_name = data.last_name
+          pseudo = data.pseudo
+          email = data.email
+          status = data.status
+          promo = data.promo
+        }
+
+        if (error) throw error
+      } 
+      catch (error) {
+        if (error instanceof Error) {
+          alert(error.message)
+        }
+      } 
+      finally {
+        loading = false
+      }
+    };
 </script>
-
-<div class="form-widget">
-	<form
-		class="form-widget"
-		method="post"
-		action="?/update"
-		use:enhance={handleSubmit}
-		bind:this={profileForm}
-	>
-		<div>
-			<label for="first_name">First Name</label>
-			<input id="first_name" name="first_name" type="text" value={form?.first_name ?? first_name} />
-		</div>
-
-        <div>
-			<label for="last_name">Last Name</label>
-			<input id="last_name" name="last_name" type="text" value={form?.last_name ?? last_name} />
-		</div>
-
-        <div>
-            <label for="pseudo">Pseudo</label>
-            <input id="pseudo" name="pseudo" type="text" value={form?.pseudo ?? pseudo} />
-        </div>
-
-        <div>
-			<label for="email">Email</label>
-			<input id="email" type="text" value={session.user.email} disabled />
-		</div>
-
-        <div>
-            <label for="status">Status</label>
-            <input id="status" name="status" type="text" value={form?.status ?? status} />
-        </div>
-
-        <div>
-            <label for="promo">Promo</label>
-            <input id="promo" name="promo" type="text" value={form?.promo ?? promo} />
-        </div>
-
-		<div>
-			<input
-				type="submit"
-				class="button block primary"
-				value={loading ? 'Loading...' : 'Update'}
-				disabled={loading}
-			/>
-		</div>
-	</form>
-</div>
