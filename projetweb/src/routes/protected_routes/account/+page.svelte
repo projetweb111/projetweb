@@ -2,9 +2,9 @@
 	import { page } from '$app/stores'
   import { supabase } from '$lib/supabaseClient'
   import { onMount } from 'svelte'
-	import Avatar from './Avatar.svelte';
+	//import Avatar from './Avatar.svelte';
 
-    let user = $page.data.session.user;
+  let user = $page.data.session.user;
 
 	let first_name: string | null = null;
 	let last_name: string | null = null;
@@ -12,10 +12,12 @@
 	let email: string | null = null;
 	let status: string | null = null;
 	let promo: string | null = null;
-
   let photo: string | null = null;
 
+  let url_photo: string | null = null;
+
 	let loading = false;
+  let downloading = false;
     onMount(() => {
       getData();
     })
@@ -28,7 +30,7 @@
 
         let { data, error } = await supabase
         .from('users')
-        .select('first_name, last_name, pseudo, email, status, promo')
+        .select('first_name, last_name, pseudo, email, status, promo, photo')
         .eq('id', user.id)
         .single()
 
@@ -39,6 +41,7 @@
           email = data.email
           status = data.status
           promo = data.promo
+          photo = data.photo
         }
 
         if (error) throw error
@@ -50,57 +53,49 @@
       } 
       finally {
         loading = false
+        dowloadPhoto();
       }
-      /*
-      try {
-        loading = true;
-        const { data, error } = await supabase
-        .storage
-        .from('avatars')
-        .download('public/vicar.jpg')
-
-        //console.log(data)
-
-        if (error) throw error
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message)
-        }
-      }
-      finally {
-        loading = false
-      }*/
     };
-      
-      const updateProfile = async () => {
+
+	// Download the user's photo from the database
+	const dowloadPhoto = async () => {
+      console.log("dowloadPhoto");
+      if (photo) {
         try {
-          loading = true
-          const updates = {
-            id: user.id,
-            photo: photo
+          downloading = true
+          const { data, error } = await supabase
+          .storage
+          .from('avatars')
+          .download(`${user.id}/${photo}`)
+
+          if (data) {
+              url_photo = URL.createObjectURL(data);
           }
 
-        let { error } = await supabase.from('users').upsert(updates)
-
-        if (error) {
-          throw error
-        }
-      } catch (error) {
+          if (error) throw error
+        } 
+        catch (error) {
           if (error instanceof Error) {
             alert(error.message)
           }
-      } finally {
-        loading = false
+        } 
+        finally {
+          downloading = false;
+        }
       }
-    };
+	};
 </script>
 
 
 <form class="row flex-center flex">
     <h1>My account</h1>
+    <a  href="/protected_routes/account/photo"  class="avatarPlaceholder" style="margin-left: auto;">
+      <img src={url_photo} alt={url_photo ? 'Avatar' : ''} class="avatar image"/>
+    </a>
 </form>
 
 {#if first_name}
+
 <form class="row flex-left flex">
     <p><strong>My name : </strong>{first_name} {last_name}</p>
 </form>
@@ -125,12 +120,6 @@
 <p>Loading ...</p>
 {/if}
 
-<form on:submit|preventDefault="{updateProfile}" class="form-widget">
-  <!-- Add to body -->
-  <Avatar bind:url="{photo}" size="{150}" on:upload="{updateProfile}" />
-
-  <!-- Other form elements -->
-</form>
 
 <div class="row flex-center flex footer">
 <form class="row flex">

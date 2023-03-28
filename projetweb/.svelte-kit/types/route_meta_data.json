@@ -15,6 +15,9 @@
 	"/protected_routes/account/auth": [
 		"src/routes/+layout.server.ts"
 	],
+	"/protected_routes/account/photo": [
+		"src/routes/+layout.server.ts"
+	],
 	"/protected_routes/account/posts": [
 		"src/routes/+layout.server.ts"
 	],

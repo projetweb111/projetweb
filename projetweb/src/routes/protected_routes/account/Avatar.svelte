@@ -13,7 +13,7 @@
   
     const downloadImage = async (path: string) => {
       try {
-        const { data, error } = await supabase.storage.from('avatars').download(path)
+        const { data, error } = await supabase.storage.from('public/avatars').download(path)
   
         if (error) {
           throw error
@@ -38,9 +38,9 @@
   
         const file = files[0]
         const fileExt = file.name.split('.').pop()
-        const filePath = `${Math.random()}.${fileExt}`
+        const filePath = `${file.name.split('.')[0]}.${fileExt}` // `${Math.random()}.${fileExt}`
   
-        let { error } = await supabase.storage.from('avatars').upload(filePath, file)
+        let { error } = await supabase.storage.from('public/avatars').upload(filePath, file)
   
         if (error) {
           throw error
@@ -58,8 +58,13 @@
     }
   
     $: if (url) downloadImage(url)
+
+    let url_test = "https://oqgfyjsoyozvcyfwctse.supabase.co/storage/v1/object/public/avatars/test.jpg?t=2023-03-27T21%3A16%3A33.853Z"
   </script>
   
+  <img src={url_test} alt={url_test ? 'Avatar' : 'No image'} class="avatar image"
+    style="height: {size}px, width: {size}px" />
+
   <div style="width: {size}px" aria-live="polite">
     {#if photo} <img src={photo} alt={photo ? 'Avatar' : 'No image'} class="avatar image"
     style="height: {size}px, width: {size}px" /> {:else}
