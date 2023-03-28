@@ -24,6 +24,27 @@
         loading = false
       }
     }
+
+    async function resetPassword() {
+        try {
+
+          if(!email) throw new Error('Please enter your email');
+          
+            const { data, error } = await supabase
+                .auth
+                .resetPasswordForEmail(email? email : "", {
+                    redirectTo: '/',
+                })
+
+            if (error) throw error
+            alert('Check your email for the password reset link!')
+
+        } catch (error) {
+            if (error instanceof Error) {
+                alert(error.message);
+            }
+        }
+    }
   </script>
   
   {#if !$page.data.session}
@@ -39,6 +60,12 @@
         <input type="submit" class="button block" value={loading ? 'Loading' : 'Sign in'}
         disabled={loading} />
       </div>
+    </div>
+  </form>
+
+  <form class="row flex-center flex">
+    <div class="col-6 form-widget">
+      <button class="button block primary" on:click|preventDefault={resetPassword}>Reset password</button>
     </div>
   </form>
   {:else}

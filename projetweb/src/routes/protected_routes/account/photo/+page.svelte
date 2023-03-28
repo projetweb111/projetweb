@@ -24,7 +24,6 @@
 
 	// GET the user's photo from the database
 	const getData = async () => {
-    console.log("getData");
       try {
         loading = true
 
@@ -55,7 +54,6 @@
 
     // Upload the user's photo from its file
     const uploadAvatar = async () => {
-      console.log("uploadAvatar");
       try {
         uploading = true
         
@@ -87,7 +85,6 @@
 
     // Update the user's photo in the database
     const updatePhoto = async () => {
-      console.log("updatePhoto");
       try {
         uploading = true
         let { error } = await supabase
@@ -110,7 +107,6 @@
 
     // Download the user's photo from the database
     const dowloadPhoto = async () => {
-      console.log("dowloadPhoto");
       if (photo) {
         try {
           downloading = true

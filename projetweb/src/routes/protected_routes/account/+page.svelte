@@ -59,7 +59,6 @@
 
 	// Download the user's photo from the database
 	const dowloadPhoto = async () => {
-      console.log("dowloadPhoto");
       if (photo) {
         try {
           downloading = true
