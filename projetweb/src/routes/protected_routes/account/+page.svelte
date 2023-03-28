@@ -90,7 +90,7 @@
 <form class="row flex-center flex">
     <h1>My account</h1>
     <a  href="/protected_routes/account/photo"  class="avatarPlaceholder" style="margin-left: auto;">
-      <img src={url_photo} alt={url_photo ? 'Avatar' : ''} class="avatar image"/>
+      <img src={url_photo} alt={url_photo ? 'Avatar' : 'Pas de photo'} class="avatar image"/>
     </a>
 </form>
 

@@ -16,6 +16,7 @@
 	let loading = false;
   let uploading = false;
   let downloading = false;
+  let deleting = false;
 
 	onMount(() => {
 	  getData();
@@ -134,6 +135,32 @@
         }
       }
     }
+
+    // Delete the user's photo (only in the user's table)
+    const deletePhoto = async () => {
+      try {
+        deleting = true
+        let { error } = await supabase
+        .from('users')
+        .update({ photo: null })
+        .eq('id', user.id)
+
+        photo = null;
+        new_photo = null;
+        url_photo = null;
+
+        if (error) throw error
+      } 
+      catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
+      } 
+      finally {
+        deleting = false;
+        getData();
+      }
+    }
 </script>
 
 {#if url_photo}
@@ -156,6 +183,13 @@
         disabled="{uploading}"
       />
     </span>
+</div>
+
+<div class="body">
+  <label class="button primary block" for="delete">
+    {deleting ? 'Deleting ...' : 'Delete the photo'}
+  </label>
+  <button id="delete" on:click={deletePhoto}></button>
 </div>
 
 <div class="footer flex-center">
