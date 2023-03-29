@@ -93,6 +93,7 @@
         .eq('id', user.id)
 
         if (error) throw error
+        emptyStorage(photo);
       } 
       catch (error) {
         if (error instanceof Error) {
@@ -146,6 +147,7 @@
         url_photo = null;
 
         if (error) throw error
+        emptyStorage(photo);
       } 
       catch (error) {
         if (error instanceof Error) {
@@ -155,6 +157,23 @@
       finally {
         deleting = false;
         getData();
+      }
+    }
+
+    const emptyStorage = async (former_photo : string | null) => {
+      if (former_photo) {
+        try {
+          const { error } = await supabase
+            .storage
+            .from('avatars')
+            .remove([`${user.id}/${former_photo}`])
+          
+            if (error) throw error
+        } catch (error) {
+          if (error instanceof Error) {
+            alert(error.message);
+          }
+        }
       }
     }
 </script>
