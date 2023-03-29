@@ -30,6 +30,13 @@
 	"/protected_routes/actualite": [
 		"src/routes/+layout.server.ts"
 	],
+	"/protected_routes/association": [
+		"src/routes/+layout.server.ts"
+	],
+	"/protected_routes/association/[name_association]": [
+		"src/routes/protected_routes/association/[name_association]/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
 	"/protected_routes/search": [
 		"src/routes/+layout.server.ts"
 	],

@@ -185,7 +185,7 @@ onMount(() => {
 </script>
 
 <div>
-    <a href="/association">
+    <a href="/protected_routes/association">
         <button>show all the associations</button>
     </a>   
 </div>
