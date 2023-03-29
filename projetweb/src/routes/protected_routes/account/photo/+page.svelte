@@ -182,10 +182,7 @@
 </div>
 
 <div class="body">
-  <label class="button primary block" for="delete">
-    {deleting ? 'Deleting ...' : 'Delete the photo'}
-  </label>
-  <button id="delete" on:click={deletePhoto}></button>
+  <button class="button primary block" on:click={deletePhoto}>{deleting ? 'Deleting ...' : 'Delete the photo'}</button>
 </div>
 
 <div class="footer flex-center">

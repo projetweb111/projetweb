@@ -20,7 +20,7 @@
 <nav >
   <a href= "/">🏠 Home</a>
   {#if !$page.data.session}
-    <a href= "/signIn">Sign in</a>
+    <a href= "/signIn">Log in</a>
     <a href= "/signUp">Sign up</a>
   {:else}
     <a href="/protected_routes/actualite">Actualités</a>

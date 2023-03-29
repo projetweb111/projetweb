@@ -31,7 +31,7 @@
     <h1 class="header">Welcome !</h1>
   </form>
   <form class="row flex-center flex">
-    <p class="form-widget" >Please sign in to continue</p>
+    <p class="form-widget" >Please log in to continue</p>
   </form>
   {:else}
   <form class="row flex-center flex">

@@ -50,8 +50,8 @@
   {#if !$page.data.session}
   <form class="row flex-center flex" on:submit|preventDefault="{handleLogin}">
     <div class="col-6 form-widget">
-      <h1 class="header">Authentification - Sign in</h1>
-      <p class="description">Sign in with your email and password</p>
+      <h1 class="header">Log in</h1>
+      <p class="description">Log in with your email and password</p>
       <div>
         <input class="inputField" type="email" placeholder="Your email" bind:value="{email}" />
         <input class="inputField" type="password" placeholder="Your password" bind:value="{password}" />
@@ -69,5 +69,5 @@
     </div>
   </form>
   {:else}
-  <h1 class="header">You just signed in</h1>
+  <h1 class="header">You just logged in</h1>
   {/if}
