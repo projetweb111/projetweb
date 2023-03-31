@@ -29,7 +29,7 @@ export const dictionary = {
 		"/protected_routes/account": [4,[2]],
 		"/protected_routes/account/assos": [5,[2]],
 		"/protected_routes/account/auth": [6,[2]],
-		"/protected_routes/account/edit": [7,[2]],
+		"/protected_routes/account/edit": [~7,[2]],
 		"/protected_routes/account/photo": [8,[2]],
 		"/protected_routes/account/posts": [9,[2]],
 		"/protected_routes/account/status": [10,[2]],

@@ -127,4 +127,7 @@
 <form class="row flex">
     <a class="button block" href="/protected_routes/account/assos">Mes assos</a>
 </form>
+<form class="row flex">
+  <a class="button block" href="/protected_routes/account/edit"> Poster un message</a>
+</form>
 </div>

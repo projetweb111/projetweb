@@ -16,6 +16,7 @@
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/account/edit": [
+		"src/routes/protected_routes/account/edit/+page.server.ts",
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/account/photo": [

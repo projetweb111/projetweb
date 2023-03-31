@@ -1,18 +1,24 @@
-<script lang = "ts">
+<script lang ="ts">
 
     import { page } from '$app/stores'
     import { supabase } from '$lib/supabaseClient'
-	import { text } from 'svelte/internal';
+    import { onMount } from 'svelte'
+
+    let loading = false;
+    onMount(() => {
+      getAssos();
+    })
 
     let myTitle = "";
     let myMessage = "";
     let myAssociation = "";
+    let myAssociations = [];
     let user = $page.data.session.user;
 
     async function addMessage(){
         console.log(user.id);
         try {
-            const {data, error} = await supabase.from('post').insert({association : "BDE", title: myTitle, content: myMessage, id_author: user.id})  
+            const {data, error} = await supabase.from('post').insert({association : myAssociation, title: myTitle, content: myMessage, id_author: user.id})  
             console.log(data);
             if (error) throw error
         } catch (error) {
@@ -21,6 +27,32 @@
             }
         } 
     }
+
+    const getAssos = async () => {
+      try {
+        loading = true
+
+        let { data, error } = await supabase
+        .from('members')
+        .select('*,association(*)')
+        .eq('id_user', user.id)
+        console.log(data);
+
+        if (data) {
+            myAssociations.push(data);
+        }
+
+        if (error) throw error
+      } 
+      catch (error) {
+        if (error instanceof Error) {
+          alert(error.message)
+        }
+      } 
+      finally {
+        loading = false
+      }
+    };
 
 </script>
 
