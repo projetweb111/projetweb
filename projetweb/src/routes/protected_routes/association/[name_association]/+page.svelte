@@ -12,6 +12,7 @@
     let logo: string | null = null;
     let url_logo: string | null = null;
     let association=data.association
+    let members: any[] | null =null
     
     // GET the association's logo from the database
     // GET the association's logo from the database
@@ -41,6 +42,7 @@
         loading = false
         dowloadLogo();
         getPost();
+        getMembers();
       }
     };
 
@@ -56,7 +58,6 @@
           
           if (data) {
               url_logo = URL.createObjectURL(data);
-              console.log(url_logo)
           }
 
           if (error) throw error
@@ -64,7 +65,6 @@
         catch (error) {
           if (error instanceof Error) {
             alert(error.message)
-            console.log(url_logo)
           }
         } 
         finally {
@@ -103,6 +103,30 @@
   onMount(() => {
     getData();
   })
+
+  const getMembers = async () => {
+    try {
+      loading = true
+      let { data, error } = await supabase
+      .from('members')
+      .select('*,users(first_name,last_name))')
+      .eq('id_asso', id_association)
+      if (data) {
+        members=data
+      }
+    
+      if (error) throw error
+    } 
+    catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } 
+    finally {
+      
+      loading = false
+    }
+  }
     </script>
 
 <form class="row flex-left flex">
@@ -111,6 +135,20 @@
         <img src={url_logo} alt={url_logo ? 'Avatar' : 'Pas de logo'} class="avatar image"/>
     </a>
 </form>
+
+<form class="row flex-left flex">
+  <h1>Members</h1>
+</form>
+{#if members}
+{#each members as member}
+  <div class="post">
+    <h3>{member.users.first_name} {member.users.last_name}</h3>
+  </div>
+{/each}
+{:else}
+  <p>loading...</p>
+{/if}
+
 <form class="row flex-left flex">
     <h1>Description</h1>
 </form>
