@@ -1,4 +1,4 @@
-import { c as create_ssr_component, b as subscribe, e as escape, d as add_attribute } from "../../../../../chunks/index.js";
+import { c as create_ssr_component, b as subscribe, d as add_attribute, e as escape } from "../../../../../chunks/index.js";
 import { p as page } from "../../../../../chunks/stores.js";
 import "../../../../../chunks/supabaseClient.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -11,16 +11,14 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let email = null;
   let status = null;
   let promo = null;
+  let url_photo = null;
   let new_first_name = null;
   let new_last_name = null;
   let new_pseudo = null;
   let new_promo = null;
   $$unsubscribe_page();
-  return `
-
-
-
-<form class="${"row flex-center flex"}"><h1>Edit my account</h1></form>
+  return `<form class="${"row flex-center flex"}"><h1>Edit my account</h1>
+	<a href="${"/protected_routes/account/photo"}" class="${"avatarPlaceholder"}" style="${"margin-left: auto;"}"><img${add_attribute("src", url_photo, 0)}${add_attribute("alt", "Pas de photo", 0)} class="${"avatar image"}"></a></form>
 
 <form class="${"row flex-center flex"}"><div class="${"col-7 form-widget"}"><div><label for="${"email"}">Email</label>
         <p>${escape(email)}</p></div>

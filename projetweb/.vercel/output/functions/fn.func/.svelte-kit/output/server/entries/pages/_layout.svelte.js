@@ -16,7 +16,7 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
   $$unsubscribe_page();
   return `<nav class="${"svelte-8abco7"}"><a href="${"/"}" class="${"svelte-8abco7"}">🏠 Home</a>
-  ${!$page.data.session ? `<a href="${"/signIn"}" class="${"svelte-8abco7"}">Sign in</a>
+  ${!$page.data.session ? `<a href="${"/signIn"}" class="${"svelte-8abco7"}">Log in</a>
     <a href="${"/signUp"}" class="${"svelte-8abco7"}">Sign up</a>` : `<a href="${"/protected_routes/actualite"}" class="${"svelte-8abco7"}">Actualités</a>
     <a href="${"/protected_routes/search"}" class="${"svelte-8abco7"}">Search </a>
     <a href="${"/protected_routes/account"}" class="${"svelte-8abco7"}">My account</a>

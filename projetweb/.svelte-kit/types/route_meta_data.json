@@ -15,6 +15,9 @@
 	"/protected_routes/account/auth": [
 		"src/routes/+layout.server.ts"
 	],
+	"/protected_routes/account/edit": [
+		"src/routes/+layout.server.ts"
+	],
 	"/protected_routes/account/photo": [
 		"src/routes/+layout.server.ts"
 	],
@@ -29,6 +32,10 @@
 	],
 	"/protected_routes/actualite": [
 		"src/routes/+layout.server.ts"
+	],
+	"/protected_routes/message": [
+		"src/routes/+layout.server.ts",
+		"src/routes/protected_routes/message/+server.ts"
 	],
 	"/protected_routes/search": [
 		"src/routes/+layout.server.ts"

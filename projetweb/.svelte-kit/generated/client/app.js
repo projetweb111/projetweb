@@ -17,7 +17,9 @@ export const nodes = [
 	() => import('./nodes/11'),
 	() => import('./nodes/12'),
 	() => import('./nodes/13'),
-	() => import('./nodes/14')
+	() => import('./nodes/14'),
+	() => import('./nodes/15'),
+	() => import('./nodes/16')
 ];
 
 export const server_loads = [0];
@@ -27,14 +29,16 @@ export const dictionary = {
 		"/protected_routes/account": [4,[2]],
 		"/protected_routes/account/assos": [5,[2]],
 		"/protected_routes/account/auth": [6,[2]],
-		"/protected_routes/account/photo": [7,[2]],
-		"/protected_routes/account/posts": [8,[2]],
-		"/protected_routes/account/status": [9,[2]],
-		"/protected_routes/account/update": [10,[2]],
-		"/protected_routes/actualite": [11,[2]],
-		"/protected_routes/search": [12,[2]],
-		"/signIn": [13],
-		"/signUp": [14]
+		"/protected_routes/account/edit": [7,[2]],
+		"/protected_routes/account/photo": [8,[2]],
+		"/protected_routes/account/posts": [9,[2]],
+		"/protected_routes/account/status": [10,[2]],
+		"/protected_routes/account/update": [11,[2]],
+		"/protected_routes/actualite": [12,[2]],
+		"/protected_routes/message": [13,[2]],
+		"/protected_routes/search": [14,[2]],
+		"/signIn": [15],
+		"/signUp": [16]
 	};
 
 export const hooks = {
