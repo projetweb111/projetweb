@@ -12,6 +12,9 @@
 	"/protected_routes/account/assos": [
 		"src/routes/+layout.server.ts"
 	],
+	"/protected_routes/account/assos/create": [
+		"src/routes/+layout.server.ts"
+	],
 	"/protected_routes/account/auth": [
 		"src/routes/+layout.server.ts"
 	],
