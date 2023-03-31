@@ -8,6 +8,7 @@
 	let name_asso : string = '';
     let photo_asso : string | null = null;
     let description_asso : string | null = null;
+    let member : boolean = false;
 
     let files: FileList;
     let url_photo_asso: string | null = null;
@@ -27,6 +28,32 @@
 
             if (error) throw error
             
+            try {
+                const { data, error } = await supabase
+                    .from('post')
+                    .insert({ association : name_asso,
+                        title : `L'association ${name_asso} a été créée !`,
+                        content : `L'association ${name_asso} a été créée par ${user.email} !`,
+                        id_author : user.id})
+            } catch (error) {
+                if (error instanceof Error) {
+                    alert(error.message)
+                }
+            }
+
+            if (member){
+                try {
+                    const id: string = await getId();
+                    const { data, error } = await supabase
+                        .from('members')
+                        .insert({ id_user : user.id,
+                            id_asso : id})
+                } catch (error) {
+                    if (error instanceof Error) {
+                        alert(error.message)
+                    }
+                }
+            }
         } 
         catch (error) {
             if (error instanceof Error) {
@@ -56,6 +83,9 @@
             if (error instanceof Error) {
                 alert(error.message)
             }
+        }
+        finally {
+            uploading = false;
         }
     }
 
@@ -144,6 +174,8 @@
             <input class="inputField" type="name_asso" placeholder="{name_asso}" bind:value="{name_asso}" />
             <label for="description_asso">Description</label>
             <input class="inputField" type="description_asso" placeholder="{description_asso}" bind:value="{description_asso}" />
+            <label for="member">Devenir un membre de cette asso ?</label>
+            <input class="inputField" type="member" placeholder="{member}" bind:value="{member}" />
         </div>
         <div>
             <input type="submit" class="button block primary" value={loading ? 'Loading' : 'Create'}
