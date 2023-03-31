@@ -9,7 +9,7 @@ type OutputDataShape<T> = MaybeWithVoid<Omit<App.PageData, RequiredKeys<T>> & Pa
 type EnsureDefined<T> = T extends null | undefined ? {} : T;
 type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends U ? keyof U : never> = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 export type Snapshot<T = any> = Kit.Snapshot<T>;
-type LayoutRouteId = RouteId | "/protected_routes/account" | "/protected_routes/account/assos" | "/protected_routes/account/auth" | "/protected_routes/account/photo" | "/protected_routes/account/posts" | "/protected_routes/account/status" | "/protected_routes/account/update" | "/protected_routes/actualite" | "/protected_routes/association" | "/protected_routes/association/[name_association]" | "/protected_routes/search"
+type LayoutRouteId = RouteId | "/protected_routes/account" | "/protected_routes/account/assos" | "/protected_routes/account/auth" | "/protected_routes/account/photo" | "/protected_routes/account/posts" | "/protected_routes/account/status" | "/protected_routes/account/update" | "/protected_routes/actualite" | "/protected_routes/association" | "/protected_routes/association/[name_association]" | "/protected_routes/association/[name_association]/logo" | "/protected_routes/search"
 type LayoutParams = RouteParams & { name_association?: string }
 type LayoutParentData = EnsureDefined<import('../$types.js').LayoutData>;
 

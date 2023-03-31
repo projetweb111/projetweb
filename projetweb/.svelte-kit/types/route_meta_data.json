@@ -34,7 +34,18 @@
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/association/[name_association]": [
-		"src/routes/protected_routes/association/[name_association]/+page.server.ts",
+		"src/routes/protected_routes/association/[name_association]/+page.server.js",
+		"src/routes/protected_routes/association/[name_association]/+layout.server.js",
+		"src/routes/+layout.server.ts",
+		"src/routes/protected_routes/association/[name_association]/+layout.server.js",
+		"src/routes/+layout.server.ts"
+	],
+	"/protected_routes/association/[name_association]/logo": [
+		"src/routes/protected_routes/association/[name_association]/logo/+layout.js",
+		"src/routes/protected_routes/association/[name_association]/+layout.server.js",
+		"src/routes/+layout.server.ts",
+		"src/routes/protected_routes/association/[name_association]/logo/+layout.js",
+		"src/routes/protected_routes/association/[name_association]/+layout.server.js",
 		"src/routes/+layout.server.ts"
 	],
 	"/protected_routes/search": [

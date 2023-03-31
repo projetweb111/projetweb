@@ -1,8 +1,11 @@
 import { supabase } from '$lib/supabaseClient'
 
 
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export async function load({ params }) {
-  const { data: association, error } = await supabase
+  const { data:association, error } = await supabase
     .from('association')
     .select()
     .eq('name_association', params.name_association)
@@ -12,8 +15,7 @@ export async function load({ params }) {
     console.log(error)
   }
 
-  return {
-      
+  return { 
       association
   }
 }

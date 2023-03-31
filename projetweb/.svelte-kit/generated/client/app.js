@@ -19,26 +19,30 @@ export const nodes = [
 	() => import('./nodes/13'),
 	() => import('./nodes/14'),
 	() => import('./nodes/15'),
-	() => import('./nodes/16')
+	() => import('./nodes/16'),
+	() => import('./nodes/17'),
+	() => import('./nodes/18'),
+	() => import('./nodes/19')
 ];
 
-export const server_loads = [0];
+export const server_loads = [0,3];
 
 export const dictionary = {
-		"/": [3],
-		"/protected_routes/account": [4,[2]],
-		"/protected_routes/account/assos": [5,[2]],
-		"/protected_routes/account/auth": [6,[2]],
-		"/protected_routes/account/photo": [7,[2]],
-		"/protected_routes/account/posts": [8,[2]],
-		"/protected_routes/account/status": [9,[2]],
-		"/protected_routes/account/update": [10,[2]],
-		"/protected_routes/actualite": [11,[2]],
-		"/protected_routes/association": [12,[2]],
-		"/protected_routes/association/[name_association]": [~13,[2]],
-		"/protected_routes/search": [14,[2]],
-		"/signIn": [15],
-		"/signUp": [16]
+		"/": [5],
+		"/protected_routes/account": [6,[2]],
+		"/protected_routes/account/assos": [7,[2]],
+		"/protected_routes/account/auth": [8,[2]],
+		"/protected_routes/account/photo": [9,[2]],
+		"/protected_routes/account/posts": [10,[2]],
+		"/protected_routes/account/status": [11,[2]],
+		"/protected_routes/account/update": [12,[2]],
+		"/protected_routes/actualite": [13,[2]],
+		"/protected_routes/association": [14,[2]],
+		"/protected_routes/association/[name_association]": [~15,[2,3]],
+		"/protected_routes/association/[name_association]/logo": [16,[2,3,4]],
+		"/protected_routes/search": [17,[2]],
+		"/signIn": [18],
+		"/signUp": [19]
 	};
 
 export const hooks = {
