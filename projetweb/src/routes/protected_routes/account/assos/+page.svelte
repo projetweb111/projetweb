@@ -65,3 +65,7 @@
         <h2>Aucune asso</h2>
     </div>
 {/if}
+
+<div class="row flex-center flex">
+    <a class="button block" href="/protected_routes/account/assos/create">Créer une association</a>
+</div>
