@@ -115,6 +115,9 @@
     <a class="button block primary" href="/protected_routes/account/update">Edit my account</a>
 </form>
 
+<form class="row flex">
+  <a class="button block" href="/protected_routes/account/write"> Poster un message</a>
+</form>
 {:else}
 <p>Loading ...</p>
 {/if}
