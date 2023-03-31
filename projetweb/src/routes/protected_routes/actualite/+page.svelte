@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { supabase } from '$lib/supabaseClient'
   import { page } from '$app/stores'
-      
+
   let loading = false
   let posts: any[] | null =null
    
@@ -14,11 +14,11 @@
   const getPost= async () => {
     try {
       loading = true
-
-      let { data, error } = await supabase
+      
+      const { data, error } = await supabase
       .from('post')
-      .select('*,users(first_name)')
-      .order('date_publish', { ascending: true})
+      .select(`*, users(first_name), like_post(count)`)
+      .order('date_publish', { ascending: false})
     
       if (data) {
         posts=data
@@ -41,7 +41,7 @@
     try {
       loading = true
       
-      let { data, error } = await supabase
+      const { data, error } = await supabase
       .from('post')
       .select('count_likes,id')
       .eq('title', post_title)
@@ -54,31 +54,62 @@
         let liked = await isLiked(post_to_like)
 
         if(!liked) {
-          let {data:post_liked, error} = await supabase
-          .from('post')
-          .update({count_likes:likes_of_post_to_like+1})
-          .eq('id', post_to_like)
-          
-          let {data:like_added} = await supabase
-          .from('like_post')
-          .upsert([{id_post:post_to_like,id_user:$page.data.session.user.id}])
+          try {
+            const {error} = await supabase
+                .from('like_post')
+                .upsert([{id_post:post_to_like,id_user:$page.data.session.user.id}])
+            
+              if (error) throw error
+
+              try {
+                const {error} = await supabase
+                  .from('post')
+                  .update({count_likes:likes_of_post_to_like+1})
+                  .eq('id', post_to_like)
+                
+                if (error) throw error
+              } catch (error) {
+                if (error instanceof Error) {
+                  alert(error.message)
+                }
+              }
+          } catch (error) {
+            if (error instanceof Error) {
+              alert(error.message)
+            }
+          }
         }
         else{
-          let {data:post_disliked} = await supabase
-          .from('post')
-          .update({count_likes:likes_of_post_to_like-1})
-          .eq('id', post_to_like)
+          try {
+            const {error} = await supabase
+              .from('like_post')
+              .delete()
+              .eq('id_post', post_to_like)
+              .eq('id_user', $page.data.session.user.id)
             
-          let {data:like_deleted} = await supabase
-          .from('like_post')
-          .delete()
-          .eq('id_post', post_to_like)
-          .eq('id_user', $page.data.session.user.id)
+            if (error) throw error
+
+              try {
+                const {error} = await supabase
+                  .from('post')
+                  .update({count_likes:likes_of_post_to_like-1})
+                  .eq('id', post_to_like)
+                
+                if (error) throw error
+              } catch (error) {
+                if (error instanceof Error) {
+                  alert(error.message)
+                }
+              }
+          } catch (error) {
+            if (error instanceof Error) {
+              alert(error.message)
+            }
+          }
         }
       }
        
-    
-      if (error) throw error
+    if (error) throw error
     } 
     catch (error) {
       if (error instanceof Error) {
@@ -95,7 +126,7 @@
   const isLiked = async(post_id:any)=>{
     let {data:liked}= await supabase
     .from('like_post')
-    .select('*')
+    .select()
     .eq('id_post', post_id)
     .eq('id_user', $page.data.session.user.id)
 
@@ -143,6 +174,6 @@
   
     {/each}
   {:else}
-    <p>loading...</p>
+    <p>{loading? 'loading...' : 'Pas de posts'}</p>
   {/if}
   
