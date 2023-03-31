@@ -22,9 +22,8 @@
         .from('members')
         .select('*,association(*)')
         .eq('id_user', user.id)
-        console.log(data);
 
-        if (data) {
+        if (data.length > 0) {
             assos = data
         }
 
