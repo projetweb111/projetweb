@@ -25,6 +25,7 @@
   {:else}
     <a href="/protected_routes/actualite">Actualités</a>
     <a href="/protected_routes/search"> Search </a>
+    <a href="/protected_routes/publish"> Publish </a>
     <a href= "/protected_routes/account">My account</a>
     <SignOut />
   {/if}
