@@ -174,8 +174,10 @@
             <input class="inputField" type="name_asso" placeholder="{name_asso}" bind:value="{name_asso}" />
             <label for="description_asso">Description</label>
             <input class="inputField" type="description_asso" placeholder="{description_asso}" bind:value="{description_asso}" />
-            <label for="member">Devenir un membre de cette asso ?</label>
-            <input class="inputField" type="member" placeholder="{member}" bind:value="{member}" />
+            <label>
+                Devenir un membre de cette asso ? 
+                <input type="checkbox" bind:checked={member}/>
+            </label>
         </div>
         <div>
             <input type="submit" class="button block primary" value={loading ? 'Loading' : 'Create'}
