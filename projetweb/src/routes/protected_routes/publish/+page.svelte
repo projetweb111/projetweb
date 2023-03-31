@@ -17,7 +17,6 @@
 
 
     const addMessage = async () => {
-        
         try {
           loading = true;
             const {data, error} = await supabase
@@ -35,11 +34,11 @@
         } 
         finally {
             loading = false;
-            goto('/protected_routes/actualite');
+            goto('/');
         }
     }
 
-    const getAssos = async () => {
+  const getAssos = async () => {
       try {
         loading = true
         let { data, error } = await supabase
@@ -67,6 +66,7 @@
 
     <input bind:value="{myTitle}" type="text" placeholder="+ To Add a title">
     <input bind:value="{myMessage}" type="text" aria-label="Post a message" placeholder=" + to edit a message">
-    <button aria-label = "sending"> POST </button>
+    <input type="submit" class="button block primary" value={loading ? 'Loading' : 'POST'}
+    disabled={loading} />
 
 </form>
