@@ -108,7 +108,7 @@
 
 		<form class="row flex-center flex">
 			<div class="col-8 form-widget">
-				<button class="button buttonPerso1 block primary" on:click|preventDefault={resetPassword}
+				<button class="buttonPerso4 block" on:click|preventDefault={resetPassword}
 					>Réinitialiser le mot de passe</button
 				>
 			</div>

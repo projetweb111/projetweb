@@ -22,7 +22,7 @@
 
 <form class="form-widget">
 	<div>
-		<button class="button block" on:click={signOut} disabled={loading}>Sign Out</button>
+		<button class="button block" on:click={signOut} disabled={loading}>Se déconnecter</button>
 	</div>
 </form>
 
