@@ -1,9 +1,10 @@
 <script lang="ts">
+	let loading = false;
+
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabaseClient';
 	import { page } from '$app/stores';
 
-	let loading = false;
 	let posts: any[] | null = null;
 
 	onMount(() => {
@@ -135,13 +136,13 @@
 	// Display the posts
 </script>
 
-<h1>Actualités</h1>
-<h2>Voici les dernières actualités :</h2>
+<div>Hello</div>
 
-{#if posts}
-	{#each posts as post}
-		<div class="post">
-			<!--
+<div>
+	{#if posts}
+		{#each posts as post}
+			<div class="post">
+				<!--
           <img
               src={post.avatarUrl}
               alt={post.avatarUrl ? 'Avatar' : 'No image'}
@@ -150,21 +151,22 @@
       en attente d'ajouter url pour photo de profil dans tableau users
       -->
 
-			<h3>Title: {post.title}</h3>
-			<p>Association: {post.association}</p>
-			<p>Author:{post.users.first_name}</p>
-		</div>
+				<h3>Title: {post.title}</h3>
+				<p>Association: {post.association}</p>
+				<p>Author:{post.users.first_name}</p>
+			</div>
 
-		<details>
-			<summary>Read more</summary>
-			<p>{post.content}</p>
-		</details>
+			<details>
+				<summary>Read more</summary>
+				<p>{post.content}</p>
+			</details>
 
-		<div>
-			<button id={post.title} on:click={() => addLikes(post.title)}>♡</button>
-			{post.count_likes}
-		</div>
-	{/each}
-{:else}
-	<p>{loading ? 'loading...' : 'Pas de posts'}</p>
-{/if}
+			<div>
+				<button id={post.title} on:click={() => addLikes(post.title)}>♡</button>
+				{post.count_likes}
+			</div>
+		{/each}
+	{:else}
+		<p>{loading ? 'loading...' : 'Pas de posts'}</p>
+	{/if}
+</div>

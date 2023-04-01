@@ -1,41 +1,63 @@
 <script lang="ts">
+	import Timeline from './timeline/timeline.svelte';
 	import { goto, invalidateAll } from '$app/navigation';
-    import { page } from '$app/stores'
-	  import { supabase } from '$lib/supabaseClient';
+	import { page } from '$app/stores';
+	import { supabase } from '$lib/supabaseClient';
 	import Reset from './Reset.svelte';
 
-    let reset: boolean = false;
+	let reset: boolean = false;
 
-    supabase.auth.onAuthStateChange((event, session) => {
-    if (event == 'PASSWORD_RECOVERY') {
-      console.log('PASSWORD_RECOVERY', session)
+	supabase.auth.onAuthStateChange((event, session) => {
+		if (event == 'PASSWORD_RECOVERY') {
+			console.log('PASSWORD_RECOVERY', session);
 
-      // show screen to update user's password
-      reset = true;
-    }else {
-      reset = false;
-    }
-    }
-    )
-  </script>
-  
-  <svelte:head>
-    <title>Home</title>
-  </svelte:head>
-  
-  {#if reset}
-  <Reset />
-  {:else}
-  {#if !$page.data.session}
-  <form class="row flex-center flex">
-    <h1 class="header">Welcome !</h1>
-  </form>
-  <form class="row flex-center flex">
-    <p class="form-widget" >Please log in to continue</p>
-  </form>
-  {:else}
-  <form class="row flex-center flex">
-    <h1 class="header">Welcome {$page.data.session.user.email} !</h1>
-  </form>
-  {/if}
-  {/if}
+			// show screen to update user's password
+			reset = true;
+		} else {
+			reset = false;
+		}
+	});
+</script>
+
+<svelte:head>
+	<title>Mines Com - Accueil</title>
+</svelte:head>
+
+<body>
+	{#if reset}
+		<Reset />
+	{:else if !$page.data.session}
+		<div class="myTitle">
+			<div class="myTitle-text">
+				<h1>Bienvenue</h1>
+			</div>
+		</div>
+		<div class="myBody">
+			<form class="myBody-text">
+				<p class="form-widget">
+					Veuillez vous connecter pour profitez de toutes les fonctionnalités.
+				</p>
+			</form>
+		</div>
+	{:else}
+		<div class="myTitle">
+			<div class="myTitle-text">
+				<h1>Fil des communications</h1>
+			</div>
+			<div class="myTitle-text recherche">
+				<p>Recherche</p>
+			</div>
+		</div>
+		<div class="myBody">
+			<form class="myBody-text">
+				<Timeline />
+			</form>
+		</div>
+	{/if}
+</body>
+
+<style>
+	.recherche {
+		text-align: right;
+	}
+</style>
