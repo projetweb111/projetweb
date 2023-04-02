@@ -134,6 +134,7 @@
 		align-items: center;
 		background-color: #885053;
 		height: 4rem;
+		z-index: 100;
 	}
 	a {
 		background: none;

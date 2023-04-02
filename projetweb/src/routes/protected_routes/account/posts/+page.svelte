@@ -78,7 +78,7 @@
 	#back-button {
 		z-index: 5;
 		position: absolute;
-		left: 20%;
+		left: 12%;
 		top: 30%;
 		margin: 1rem;
 		width: fit-content;

@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap');
+
 html,
 body {
 	--custom-font-family: Inter, Helvetica Neue, sans-serif;
+	--custom-font2: 'Inter', Helvetica Neue, sans-serif;
+	--custom-font3: 'Outfit', Helvetica Neue, sans-serif;
 	--custom-bg-color: #131200;
 	--custom-panel-color: #222;
 	--custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
@@ -12,7 +16,7 @@ body {
 	--custom-color3: #282b29;
 	--custom-color4: #212121;
 	--custom-color5: #f2a65a;
-	--custom-color5-2: #8d5d2c;
+	--custom-color5-2: #996128;
 	--custom-color-secondary: #666;
 	--custom-border: 1px solid #333;
 	--custom-border-radius: 5px;
@@ -483,8 +487,8 @@ button.primary,
 .myTitle {
 	/* for the div in the header */
 	text-align: Left;
-	padding-left: 30%;
-	padding-right: 30%;
+	padding-left: 25%;
+	padding-right: 25%;
 	padding-top: 4rem;
 	font-size: 1.5em;
 	background-color: #462a2b;
@@ -505,8 +509,8 @@ button.primary,
 .myBody {
 	/* for the div in the body */
 	text-align: Left;
-	padding-left: 30%;
-	padding-right: 30%;
+	padding-left: 25%;
+	padding-right: 25%;
 	font-size: 1.5em;
 	font-size: 1em;
 	padding-bottom: 4rem;

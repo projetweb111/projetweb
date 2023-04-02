@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PostTemplate from './postTemplate.svelte';
 	let loading = false;
 
 	import { onMount } from 'svelte';
@@ -52,7 +53,7 @@
 			if (data) {
 				let liked = await isLiked(post_to_like);
 
-				if (!liked) {
+				if (liked === 0) {
 					try {
 						const { error } = await supabase
 							.from('like_post')
@@ -127,46 +128,51 @@
 			.eq('id_user', $page.data.session.user.id);
 
 		if (liked && liked.length > 0) {
-			return true;
+			return 1;
 		} else {
-			return false;
+			return 0;
 		}
 	};
-
-	// Display the posts
 </script>
-
-<div>Hello</div>
 
 <div>
 	{#if posts}
 		{#each posts as post}
-			<div class="post">
-				<!--
-          <img
-              src={post.avatarUrl}
-              alt={post.avatarUrl ? 'Avatar' : 'No image'}
-              
-          />
-      en attente d'ajouter url pour photo de profil dans tableau users
-      -->
-
-				<h3>Title: {post.title}</h3>
-				<p>Association: {post.association}</p>
-				<p>Author:{post.users.first_name}</p>
-			</div>
-
-			<details>
-				<summary>Read more</summary>
-				<p>{post.content}</p>
-			</details>
-
-			<div>
-				<button id={post.title} on:click={() => addLikes(post.title)}>♡</button>
-				{post.count_likes}
-			</div>
+			<PostTemplate
+				PostTitle={post.title}
+				PostAssociation={post.association}
+				PostAuthor={post.users.first_name}
+				PostContent={post.content}
+			>
+				<button class="buttonLike" id={post.title} on:click={() => addLikes(post.title)}
+					>{post.count_likes}
+					{#if true}
+						<!-- //ajouter une fonction qui vérifie si l'utilisateur a déjà liké le post -->
+						<span id="heart">♥</span>
+					{:else}
+						<span id="heart">♡</span>
+					{/if}
+				</button>
+			</PostTemplate>
 		{/each}
 	{:else}
-		<p>{loading ? 'loading...' : 'Pas de posts'}</p>
+		<h3 id="no-post">
+			{loading ? 'loading...' : "Il n'y a malheureusement aucune communication pour le moment"}
+		</h3>
 	{/if}
 </div>
+
+<style>
+	#no-post {
+		text-align: center;
+	}
+
+	#heart {
+		text-decoration: bold;
+		font-size: 1rem;
+	}
+
+	.buttonLike {
+		font-size: 0.8em;
+	}
+</style>

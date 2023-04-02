@@ -14,15 +14,10 @@
 		</div>
 	</div>
 {:else}
-	<div class="body">
+	<div class="main">
 		<slot />
 	</div>
 {/if}
 
 <style>
-	.body {
-		margin: 0;
-		height: 100%;
-		overflow: hidden;
-	}
 </style>
