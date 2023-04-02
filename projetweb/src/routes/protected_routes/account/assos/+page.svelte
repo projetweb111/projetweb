@@ -51,6 +51,19 @@
 </div>
 <div class="myBody">
 	<div class="myBody-text">
+		<div class="buttons form-widget">
+			<div>
+				<a class="buttonLink" href="/protected_routes/account/assos/">
+					<button class="buttonPerso1 button block"> Devenir membre d'une association</button></a
+				>
+			</div>
+			<div>
+				<a class="buttonLink" href="/protected_routes/account/assos/create">
+					<button class="buttonPerso2 button block">Créer une association</button>
+				</a>
+			</div>
+		</div>
+		<hr />
 		<div>
 			{#if loading}
 				<div class="row flex-center flex">
@@ -58,12 +71,9 @@
 				</div>
 			{:else if assos}
 				{#each assos as asso}
-					<div>
+					<div class="assoHolder">
 						<h1>{asso.association.name_association}</h1>
-						<details>
-							<summary>Description</summary>
-							<p>{asso.association.description}</p>
-						</details>
+						<p>{asso.association.description}</p>
 					</div>
 				{/each}
 			{:else}
@@ -76,6 +86,52 @@
 </div>
 
 <style>
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 2rem;
+		/* text-align: center;*/
+		justify-content: space-around;
+		padding: 0 8rem;
+		width: 100%;
+	}
+
+	.buttonLink {
+		text-decoration: none;
+		width: 100%;
+		margin: 5px;
+	}
+
+	hr {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid var(--custom-color4);
+		margin: 0;
+		padding: 0;
+	}
+
+	.assoHolder {
+		border-radius: 1rem;
+		background-color: var(--custom-color3);
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		padding: 1rem 2rem;
+		padding-top: 0.4rem;
+	}
+
+	.assoHolder h1 {
+		font-size: 2rem;
+		font-weight: 500;
+		/* margin-top: 1rem; */
+	}
+
+	.assoHolder p {
+		font-size: 1rem;
+		font-weight: 300;
+	}
+
 	/* for return button */
 	#back-button {
 		z-index: 5;

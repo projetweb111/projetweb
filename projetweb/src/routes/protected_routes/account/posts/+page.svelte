@@ -1,4 +1,6 @@
 <script lang="ts">
+	import PostTemplate2 from './../../../timeline/postTemplate2.svelte';
+
 	import { page } from '$app/stores';
 	import { supabase } from '$lib/supabaseClient';
 	import { onMount } from 'svelte';
@@ -55,14 +57,19 @@
 				</div>
 			{:else if posts}
 				{#each posts as post}
-					<div>
+					<!-- <div>
 						<h1>{post.title}</h1>
 						<h2>{post.association}</h2>
 						<details>
 							<summary>Content</summary>
 							<p>{post.content}</p>
 						</details>
-					</div>
+					</div> -->
+					<PostTemplate2
+						PostTitle={post.title}
+						PostAssociation={post.association}
+						PostContent={post.content}
+					/>
 				{/each}
 			{:else}
 				<div class="row flex-center flex">

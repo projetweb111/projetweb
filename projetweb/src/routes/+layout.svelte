@@ -39,26 +39,33 @@
 			<button><a href="/signUp">Créer un compte</a></button>
 		</div>
 	{:else}
-		<div class="dropdown" use:clickOutside on:click_outside={handleClickOutside}>
-			<!-- // message d'erreur, mais ça marche ¯\_ツ_/¯ -->
-			<button
-				on:click={() => {
-					showDropdown = !showDropdown;
-				}}
-				class="dropbtn">Mon compte</button
-			>
+		<div id="buttons">
+			<div class="publier">
+				<a href="/protected_routes/publish">
+					<button class="buttonPerso1">Publier</button>
+				</a>
+			</div>
+			<div class="dropdown" use:clickOutside on:click_outside={handleClickOutside}>
+				<!-- // message d'erreur, mais ça marche ¯\_ツ_/¯ -->
+				<button
+					on:click={() => {
+						showDropdown = !showDropdown;
+					}}
+					class="dropbtn">Mon compte</button
+				>
 
-			{#if showDropdown}
-				<div class="dropdown-content">
-					<span
-						on:click={() => {
-							showDropdown = !showDropdown;
-						}}
-						on:keypress><MyAccount /></span
-					>
-					<SignOut />
-				</div>
-			{/if}
+				{#if showDropdown}
+					<div class="dropdown-content">
+						<span
+							on:click={() => {
+								showDropdown = !showDropdown;
+							}}
+							on:keypress><MyAccount /></span
+						>
+						<SignOut />
+					</div>
+				{/if}
+			</div>
 		</div>
 	{/if}
 
@@ -102,6 +109,17 @@
   min-height: 3em;
 } -->
 <style>
+	#buttons {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.publier {
+		margin: 1rem;
+	}
+
 	.notSignedIn {
 		display: flex;
 		align-items: right;

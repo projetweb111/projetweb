@@ -11,6 +11,7 @@ body {
 	--custom-color: #eee2df;
 	--custom-color-brand: #f2a65a;
 	--custom-color1: #885053;
+	--custom-color1-2: #563234;
 	--custom-color2: #7389ae;
 	--custom-color2-2: #4a586f;
 	--custom-color3: #282b29;
@@ -282,7 +283,7 @@ button.primary,
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: none;
+	border: 1px solid var(--custom-color-brand);
 	background-color: var(--custom-color-brand);
 	text-transform: none !important;
 	transition: all 0.2s ease;

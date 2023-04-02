@@ -19,7 +19,7 @@
 
 			const { data, error } = await supabase
 				.from('post')
-				.select(`*, users(first_name), like_post(count)`)
+				.select(`*, users(first_name), like_post(*)`)
 				.order('date_publish', { ascending: false });
 
 			if (data) {
@@ -133,6 +133,17 @@
 			return 0;
 		}
 	};
+
+	// Check if the user has already liked the post with result without database request
+	const like = (list_likes: any[], post_id: any) => {
+		let liked = false;
+		list_likes.forEach((like) => {
+			if (like.id_user == post_id) {
+				liked = true;
+			}
+		});
+		return liked;
+	};
 </script>
 
 <div>
@@ -146,7 +157,7 @@
 			>
 				<button class="buttonLike" id={post.title} on:click={() => addLikes(post.title)}
 					>{post.count_likes}
-					{#if true}
+					{#if like(post.like_post, $page.data.session.user.id)}
 						<!-- //ajouter une fonction qui vérifie si l'utilisateur a déjà liké le post -->
 						<span id="heart">♥</span>
 					{:else}
