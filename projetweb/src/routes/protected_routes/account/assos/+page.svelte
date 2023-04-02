@@ -53,7 +53,7 @@
 	<div class="myBody-text">
 		<div class="buttons form-widget">
 			<div>
-				<a class="buttonLink" href="/protected_routes/account/assos/">
+				<a class="buttonLink" href="/protected_routes/account/assos/member">
 					<button class="buttonPerso1 button block"> Devenir membre d'une association</button></a
 				>
 			</div>
