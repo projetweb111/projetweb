@@ -189,3 +189,46 @@
   <button class="button primary block" on:click={deleteLogo}>{deleting ? 'Deleting ...' : 'Delete the photo'}</button>
 </div>
 
+<style>
+	.row {
+		display: flex;
+		/* margin-bottom: 1.2rem; */
+	}
+
+	.column {
+		flex: 80%;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+	/* for return button */
+	#back-button {
+		z-index: 5;
+		position: absolute;
+		left: 20%;
+		top: 30%;
+		margin: 1rem;
+		width: fit-content;
+	}
+
+	#return {
+		text-decoration: none;
+	}
+
+	#button1 {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--custom-color1);
+		background-color: var(--custom-color1);
+		text-transform: none !important;
+		transition: all 0.2s ease;
+	}
+
+	#button1:hover {
+		background-color: #2a2a2a;
+		border: 1px solid var(--custom-color1);
+	}
+</style>
