@@ -192,7 +192,7 @@
 	<div class="myBody-text">
 		<div>
 			<div id="all-asso">
-				<a href="/association">
+				<a href="/protected_routes/association">
 					<button>Voir toutes les associations</button>
 				</a>
 			</div>
