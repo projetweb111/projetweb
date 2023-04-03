@@ -1,9 +1,11 @@
 <script lang="ts">
+	import PostTemplate from './postTemplate.svelte';
+	let loading = false;
+
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabaseClient';
 	import { page } from '$app/stores';
 
-	let loading = false;
 	let posts: any[] | null = null;
 
 	onMount(() => {
@@ -17,7 +19,7 @@
 
 			const { data, error } = await supabase
 				.from('post')
-				.select(`*, users(first_name), like_post(count)`)
+				.select(`*, users(first_name), like_post(*)`)
 				.order('date_publish', { ascending: false });
 
 			if (data) {
@@ -51,7 +53,7 @@
 			if (data) {
 				let liked = await isLiked(post_to_like);
 
-				if (!liked) {
+				if (liked === 0) {
 					try {
 						const { error } = await supabase
 							.from('like_post')
@@ -126,45 +128,63 @@
 			.eq('id_user', $page.data.session.user.id);
 
 		if (liked && liked.length > 0) {
-			return true;
+			return 1;
 		} else {
-			return false;
+			return 0;
 		}
 	};
 
-	// Display the posts
+	// Check if the user has already liked the post with result without database request
+	const like = (list_likes: any[], post_id: any) => {
+		let liked = false;
+		list_likes.forEach((like) => {
+			if (like.id_user == post_id) {
+				liked = true;
+			}
+		});
+		return liked;
+	};
 </script>
 
-<h1>Actualités</h1>
-<h2>Voici les dernières actualités :</h2>
+<div>
+	{#if posts}
+		{#each posts as post}
+			<PostTemplate
+				PostTitle={post.title}
+				PostAssociation={post.association}
+				PostAuthor={post.users.first_name}
+				PostContent={post.content}
+				PostDate={post.date_publish.toString()}
+			>
+				<button class="buttonLike" id={post.title} on:click={() => addLikes(post.title)}
+					>{post.count_likes}
+					{#if like(post.like_post, $page.data.session.user.id)}
+						<!-- //ajouter une fonction qui vérifie si l'utilisateur a déjà liké le post -->
+						<span id="heart">♥</span>
+					{:else}
+						<span id="heart">♡</span>
+					{/if}
+				</button>
+			</PostTemplate>
+		{/each}
+	{:else}
+		<h3 id="no-post">
+			{loading ? 'loading...' : "Il n'y a malheureusement aucune communication pour le moment"}
+		</h3>
+	{/if}
+</div>
 
-{#if posts}
-	{#each posts as post}
-		<div class="post">
-			<!--
-          <img
-              src={post.avatarUrl}
-              alt={post.avatarUrl ? 'Avatar' : 'No image'}
-              
-          />
-      en attente d'ajouter url pour photo de profil dans tableau users
-      -->
+<style>
+	#no-post {
+		text-align: center;
+	}
 
-			<h3>Title: {post.title}</h3>
-			<p>Association: {post.association}</p>
-			<p>Author:{post.users.first_name}</p>
-		</div>
+	#heart {
+		text-decoration: bold;
+		font-size: 1rem;
+	}
 
-		<details>
-			<summary>Read more</summary>
-			<p>{post.content}</p>
-		</details>
-
-		<div>
-			<button id={post.title} on:click={() => addLikes(post.title)}>♡</button>
-			{post.count_likes}
-		</div>
-	{/each}
-{:else}
-	<p>{loading ? 'loading...' : 'Pas de posts'}</p>
-{/if}
+	.buttonLike {
+		font-size: 0.8em;
+	}
+</style>

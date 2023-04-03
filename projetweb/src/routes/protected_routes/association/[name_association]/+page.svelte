@@ -129,60 +129,126 @@
   }
     </script>
 
-<form class="row flex-left flex">
-    <h1><strong>{data.association.name_association}</strong></h1>
-    <a  href="/protected_routes/association/{dataPage.association.name_association}/logo"  class="avatarPlaceholder" style="margin-left: auto;">
-        <img src={url_logo} alt={url_logo ? 'Avatar' : 'Pas de logo'} class="avatar image"/>
-    </a>
-</form>
+<div id="back-button">
+	<a id="return" href="/protected_routes/association/">
+		<button id="button1" class="button buttonPerso3 block primary"> &lt Retour</button>
+	</a>
+</div>
 
-<form class="row flex-left flex">
-  <h1>Members</h1>
-</form>
-{#if members}
-{#each members as member}
-  <div class="post">
-    <h3>{member.users.first_name} {member.users.last_name}</h3>
-  </div>
-{/each}
-{:else}
-  <p>loading...</p>
-{/if}
+<div class="myTitle" style="background-color: var(--custom-color2-2)">
+	<div class="myTitle-text">
+		<h1>{data.association.name_association}</h1>
+	</div>
+  <a  href="/protected_routes/association/{dataPage.association.name_association}/logo"  class="avatarPlaceholder" style="margin-left: auto;">
+    <img src={url_logo} alt={url_logo ? 'Avatar' : 'Pas de logo'} class="avatar image"/>
+  </a>
+</div>
 
-<form class="row flex-left flex">
-    <h1>Description</h1>
-</form>
+<div class="myBody">
+	<div class="myBody-text">
 
-<form class="row flex-left flex">
-    <h1>{data.association.description}</h1>
-</form>
-
-<form class="row flex-left flex">
-    <h1>Actualités</h1>
-</form>
-{#if posts}
-    {#each posts as post}
-        
-      <div class="post">
-      <!--
-          <img
-              src={post.avatarUrl}
-              alt={post.avatarUrl ? 'Avatar' : 'No image'}
-              
-          />
-      en attente d'ajouter url pour photo de profil dans tableau users
-      -->
-      
-        <h3>Title: {post.title}</h3>
-        <p>Association: {post.association}</p>
-        <p>Author:{post.users.first_name}</p>
+      <div class="assoHolder">
+        <h1>Members</h1>
+      {#if members}
+      {#each members as member}
+        <div class="post">
+          <hp>{member.users.first_name} {member.users.last_name}</hp>
+        </div>
+      {/each}
+      {:else}
+        <p>loading...</p>
+      {/if}
       </div>
-      
-      <details>
-        <summary>Read more</summary>
-        <p>{post.content}</p>
-      </details>
-    {/each}
-  {:else}
-    <p>loading...</p>
-  {/if}
+
+      <div class="assoHolder">
+        <h1>Description</h1>
+        {#if data.association.description}
+          <p>{data.association.description}</p>
+        {/if}
+      </div>
+
+      <div class="assoHolder">
+        <h1>Actualités</h1>
+        
+        {#if posts}
+        {#each posts as post}
+            
+          <div class="post">
+          <!--
+              <img
+                  src={post.avatarUrl}
+                  alt={post.avatarUrl ? 'Avatar' : 'No image'}
+                  
+              />
+          en attente d'ajouter url pour photo de profil dans tableau users
+          -->
+          
+            <h3>Title: {post.title}</h3>
+            <p>Association: {post.association}</p>
+            <p>Author:{post.users.first_name}</p>
+          </div>
+          
+          <details>
+            <summary>Read more</summary>
+            <p>{post.content}</p>
+          </details>
+        {/each}
+      {:else}
+        <p>loading...</p>
+      {/if}
+
+      </div>
+
+  </div>
+  </div>
+
+  <style>  
+    .assoHolder {
+      border-radius: 1rem;
+      background-color: var(--custom-color3);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding: 1rem 2rem;
+      padding-top: 0.4rem;
+    }
+  
+    .assoHolder h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      /* margin-top: 1rem; */
+    }
+  
+    .assoHolder p {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+  
+    /* for return button */
+    #back-button {
+      z-index: 5;
+      position: absolute;
+      left: 12%;
+      top: 30%;
+      margin: 1rem;
+      width: fit-content;
+    }
+  
+    #return {
+      text-decoration: none;
+    }
+  
+    #button1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--custom-color1);
+      background-color: var(--custom-color1);
+      text-transform: none !important;
+      transition: all 0.2s ease;
+    }
+  
+    #button1:hover {
+      background-color: #2a2a2a;
+      border: 1px solid var(--custom-color1);
+    }
+  </style>  
